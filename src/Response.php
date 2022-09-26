@@ -143,15 +143,16 @@ class Response
     }
 
     /**
+     * @param int $jsonDepth
      * @param int $jsonDecodeFlags
      * @return array
      */
-    public function toArray(int $jsonDecodeFlags = 0): array
+    public function toArray(int $jsonDepth = 512, int $jsonDecodeFlags = 0): array
     {
         if ($this->isContentTypeJson()) {
 
             if (is_null($this->toArraySaved)) {
-                $this->toArraySaved = (array) @json_decode($this->curlContent, true, $jsonDecodeFlags);
+                $this->toArraySaved = (array) @json_decode($this->curlContent, true, $jsonDepth, $jsonDecodeFlags);
             }
 
             return $this->toArraySaved;
