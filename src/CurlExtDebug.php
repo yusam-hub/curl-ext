@@ -47,6 +47,7 @@ class CurlExtDebug extends \YusamHub\CurlExt\CurlExt
      */
     public function logPrint(...$vars)
     {
+        if (!$this->isDebugging) return;
         if (empty($this->storageLogFile)) return;
 
         foreach ($vars as $v) {
