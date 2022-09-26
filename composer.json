@@ -1,0 +1,31 @@
+{
+    "name": "yusam-hub/curl-ext",
+    "description": "yusam-hub/curl-ext",
+    "type": "package",
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.0",
+        "ext-curl": "*",
+        "ext-iconv": "*",
+        "ext-mbstring": "*",
+        "ext-fileinfo": "*",
+        "guzzlehttp/psr7": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "YusamHub\\CurlExt\\": "src/"
+        },
+        "files": [
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "YusamHub\\CurlExt\\Tests\\": "tests/"
+        },
+        "files": [
+        ]
+    }
+}
