@@ -33,7 +33,7 @@ class CurlAssert
      * @param int $value
      * @return void
      */
-    public function assertStatusCode(int $value)
+    public function assertStatusCode(int $value): void
     {
         $this->testCase->assertTrue(
             $this->curlExt->getLastResponse()->isStatusCode($value),

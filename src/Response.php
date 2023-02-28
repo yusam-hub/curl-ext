@@ -34,6 +34,11 @@ class Response
     protected string $curlError;
 
     /**
+     * @var array
+     */
+    protected array $headers = [];
+
+    /**
      * Response constructor.
      * @param array $curlHeaders
      * @param string $curlContent
@@ -46,6 +51,30 @@ class Response
         $this->curlContent = $curlContent;
         $this->curlMeta = $curlMeta;
         $this->curlError = $curlError;
+        $this->extractCurlHeaders();
+    }
+
+    /**
+     * @return void
+     */
+    protected function extractCurlHeaders(): void
+    {
+        $this->headers = [];
+        foreach($this->curlHeaders as $headerKeyValue) {
+            if (strpos($headerKeyValue, ': ') !== false) {
+                list ($key, $value) = explode(': ', $headerKeyValue);
+                $lKey = strtolower($key);
+                if (isset($this->headers[$lKey])) {
+                    $oldVal = $this->headers[$lKey];
+                    if (!is_array($oldVal)) {
+                        $this->headers[$lKey] = [$oldVal];
+                    }
+                    $this->headers[$lKey][] = trim($value);
+                } else {
+                    $this->headers[$lKey] = trim($value);
+                }
+            }
+        }
     }
 
     /**
@@ -57,11 +86,30 @@ class Response
     }
 
     /**
+     * @return array
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    /**
+     * @param string $name
+     * @return string|null
+     */
+    public function getHeader(string $name): ?string
+    {
+        $name = strtolower($name);
+        return $this->headers[$name]??null;
+    }
+
+    /**
      * @param array $value
      */
     public function setCurlHeaders(array $value): void
     {
         $this->curlHeaders = $value;
+        $this->extractCurlHeaders();
     }
 
     /**

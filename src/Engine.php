@@ -58,7 +58,7 @@ class Engine
      * @param Request $request
      * @return array|string
      */
-    private function makeCurlPostFields(Request $request): array|string
+    private function makeCurlPostFields(Request $request)
     {
         $requestParams = $request->getRequestParams();
 

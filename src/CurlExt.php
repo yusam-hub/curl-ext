@@ -11,7 +11,10 @@ class CurlExt implements CurlExtInterface
     /**
      * @var int[]
      */
-    public array $defaultCurlOptions = [];
+    public array $defaultCurlOptions = [
+        'CURLOPT_SSL_VERIFYHOST' => 0,
+        'CURLOPT_SSL_VERIFYPEER' => 0,
+    ];
 
     /**
      * @var string
@@ -74,7 +77,7 @@ class CurlExt implements CurlExtInterface
      * @param string $value
      * @return void
      */
-    public function setBaseUrl($value): void
+    public function setBaseUrl(string $value): void
     {
         $this->baseUrl = $value;
     }
@@ -285,8 +288,6 @@ class CurlExt implements CurlExtInterface
         $this->lastResponse = null;
 
         $curlOptions = array_merge([
-            'CURLOPT_SSL_VERIFYHOST' => 0,
-            'CURLOPT_SSL_VERIFYPEER' => 0,
             'CURLOPT_HEADER' => 1,
             'CURLOPT_RETURNTRANSFER' => 1,
         ], $this->defaultCurlOptions);

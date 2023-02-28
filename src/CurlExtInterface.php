@@ -16,6 +16,7 @@ interface CurlExtInterface
 
     const ENCODING_UTF8 = 'UTF-8';
 
+    const HEADER_ACCEPT = 'accept';
     const HEADER_CONTENT_TYPE = 'content-type';
     const CONTENT_TYPE_APPLICATION_JSON = 'application/json';
     const CONTENT_TYPE_APPLICATION_FORM_URLENCODED = 'application/x-www-form-urlencoded';

@@ -161,13 +161,18 @@ class Request
     }
 
     /**
-     * @param bool $keyCaseLower
+     * @param null|bool $keyCaseLower
      * @return array
      */
-    public function getCurlHttpHeaders($keyCaseLower = true): array
+    public function getCurlHttpHeaders(?bool $keyCaseLower): array
     {
         $out = [];
-        foreach($this->requestHeaders as $key => $value) {
+
+        $requestHeaders = array_filter($this->requestHeaders, function ($v){
+            return !empty($v);
+        });
+
+        foreach($requestHeaders as $key => $value) {
             if ($keyCaseLower === true) {
                 $string = strtolower($key) . ": " . $value;
             } elseif ($keyCaseLower === false) {
@@ -177,7 +182,16 @@ class Request
             }
             $out[] = $string;
         }
+
         return $out;
+    }
+
+    /**
+     * @return void
+     */
+    public function setAcceptApplicationJson(): void
+    {
+        $this->requestHeaders[CurlExtInterface::HEADER_ACCEPT] = CurlExtInterface::CONTENT_TYPE_APPLICATION_JSON;
     }
 
     /**
@@ -216,6 +230,21 @@ class Request
     /**
      * @return bool
      */
+    public function isAcceptApplicationJson(): bool
+    {
+        return count(
+                array_filter(
+                    $this->getRequestHeaders(),
+                    function($v, $k){
+                        return (strtolower($k) === CurlExtInterface::HEADER_ACCEPT) && (strtolower($v) === CurlExtInterface::CONTENT_TYPE_APPLICATION_JSON);
+                    },
+                    ARRAY_FILTER_USE_BOTH)
+            ) >= 1;
+    }
+
+    /**
+     * @return bool
+     */
     public function isContentTypeApplicationJson(): bool
     {
         return count(
@@ -225,7 +254,7 @@ class Request
                         return (strtolower($k) === CurlExtInterface::HEADER_CONTENT_TYPE) && (strtolower($v) === CurlExtInterface::CONTENT_TYPE_APPLICATION_JSON);
                     },
                     ARRAY_FILTER_USE_BOTH)
-            ) === 1;
+            ) >= 1;
     }
 
     /**

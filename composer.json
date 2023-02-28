@@ -4,7 +4,8 @@
     "type": "package",
     "minimum-stability": "stable",
     "require": {
-        "php": "^8.0",
+        "php": "^7.4|^8.0|^8.1|^8.2",
+        "ext-json": "*",
         "ext-curl": "*",
         "ext-iconv": "*",
         "ext-mbstring": "*",
@@ -19,6 +20,7 @@
             "YusamHub\\CurlExt\\": "src/"
         },
         "files": [
+            "src/functions.php"
         ]
     },
     "autoload-dev": {
