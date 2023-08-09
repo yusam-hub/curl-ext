@@ -38,3 +38,16 @@ if (! function_exists('curl_ext_parse_url_get_request_uri')) {
         return $requestUri;
     }
 }
+
+if (! function_exists('curl_ext_time_utc')) {
+
+    /**
+     * @param int|null $timestamp
+     * @return int
+     */
+    function curl_ext_time_utc(?int $timestamp = null): int
+    {
+        $utc = gmdate("Y-m-d H:i:s", $timestamp);
+        return (int) strtotime($utc);
+    }
+}
