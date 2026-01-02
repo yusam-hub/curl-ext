@@ -1,6 +1,6 @@
 #### yusam-hub/curl-ext
 
-    "php": "^7.4|^8.0|^8.1|^8.2"
+    "php": "^7.4 || ^8.3"
 
 #### tests
 
@@ -19,5 +19,6 @@
     "require": {
         ...
         "yusam-hub/curl-ext": "dev-master"
+        "yusam-hub/curl-ext": "^1.0"
         ...
     }
